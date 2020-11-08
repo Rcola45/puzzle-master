@@ -6,12 +6,14 @@ class PuzzleMaster < SlackRubyBot::Bot
   match(/^sudoku( (?<difficulty>\w+))?/i) do |client, data, match|
     sudoku = new_sudoku(match[:difficulty])
     message = build_message(sudoku.response, sudoku.url, sudoku.difficulty)
+    puts "Responding to 'sudoku' command with: #{message}"
     respond_to_slack(client, data, message)
   end
 
   match(/morning/i) do |client, data, _match|
     sudoku = new_sudoku
     message = build_message('Good Morning, Puzzlers', sudoku.url, sudoku.difficulty)
+    puts "Responding to 'morning' command with: #{message}"
     respond_to_slack(client, data, message)
   end
 
