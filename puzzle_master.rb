@@ -27,7 +27,9 @@ class PuzzleMaster < SlackRubyBot::Bot
 
     def respond_to_slack(client, data, message)
       # Send message back to slack
-      client.say(channel: data.channel, text: message)
+      options = { channel: data.channel, text: message }
+      options.merge!({ thread_ts: data.thread_ts }) if data.thread_ts
+      client.say(options)
     end
   end
 end
