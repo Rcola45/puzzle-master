@@ -11,7 +11,8 @@ class Sudoku
     'This one should tickle your fancy, Puzzlers',
     'I am at your beck and call, Puzzlers',
     'Here\'s one for the ages, Puzzlers',
-    'This one is :chefs-kiss:, Puzzlers'
+    'This one is :chefs-kiss:, Puzzlers',
+    'I solved this in 1:27. Try and catch up, Puzzlers',
   ].freeze
 
   def initialize(difficulty = nil)
