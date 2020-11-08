@@ -33,6 +33,7 @@ GEM
     hashie (4.1.0)
     multipart-post (2.1.1)
     nio4r (2.5.4)
+    rack (2.2.3)
     ruby2_keywords (0.0.2)
     rubyzip (2.3.0)
     selenium-webdriver (3.142.7)
@@ -58,8 +59,12 @@ PLATFORMS
 DEPENDENCIES
   celluloid-io
   dotenv
+  rack
   selenium-webdriver
   slack-ruby-bot
+
+RUBY VERSION
+   ruby 2.4.4p296
 
 BUNDLED WITH
    1.17.3
