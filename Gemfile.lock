@@ -42,7 +42,7 @@ GEM
     minitest (5.14.2)
     multipart-post (2.1.1)
     nio4r (2.5.4)
-    rake (13.0.1)
+    rack (2.2.3)
     ruby2_keywords (0.0.2)
     rubyzip (2.3.0)
     selenium-webdriver (3.142.7)
@@ -72,7 +72,7 @@ DEPENDENCIES
   activesupport
   celluloid-io
   dotenv
-  rake
+  rack
   selenium-webdriver
   slack-ruby-bot
 
