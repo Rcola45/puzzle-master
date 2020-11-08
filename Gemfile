@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.4.4'
 
-gem 'slack-ruby-bot'
+gem 'activesupport'
 gem 'celluloid-io'
-gem 'selenium-webdriver'
 gem 'dotenv'
+gem 'rake'
+gem 'selenium-webdriver'
+gem 'slack-ruby-bot'
