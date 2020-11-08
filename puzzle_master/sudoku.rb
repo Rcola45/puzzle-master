@@ -5,12 +5,13 @@ class Sudoku
 
   BASE_URL = 'https://sudokuexchange.com/play/'.freeze
   RESPONSES = [
-    'Of course, Puzzler',
-    'As you wish, Puzzler',
-    'I wouldn\'t have it any other way, Puzzler',
-    'This one should tickle your fancy, Puzzler',
-    'I am at your beck and call, Puzzler',
-    'Here\'s one for the ages, Puzzler'
+    'Of course, Puzzlers',
+    'As you wish, Puzzlers',
+    'I wouldn\'t have it any other way, Puzzlers',
+    'This one should tickle your fancy, Puzzlers',
+    'I am at your beck and call, Puzzlers',
+    'Here\'s one for the ages, Puzzlers',
+    'This one is :chefs-kiss:, Puzzlers'
   ].freeze
 
   def initialize(difficulty = nil)
