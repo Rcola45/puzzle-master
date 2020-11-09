@@ -13,7 +13,11 @@ class Sudoku
     'Here\'s one for the ages, Puzzlers',
     'This one is :chefs-kiss:, Puzzlers',
     'I solved this in 1:27. Try and catch up, Puzzlers',
-    '{{user}} has requested a puzzle for their fellow Puzzlers'
+    '{{user}} has requested a puzzle for their fellow Puzzlers',
+    'X-Wing on this one would only slow you down, Puzzlers',
+    'I go to bed...and all I see in my head...is grids...Puzzlers',
+    "{{user}} has requested someone get me out of this computer!\nJust kidding, its just another sudoku, Puzzlers",
+    'Put a 3 in row seven, column four, trust me Puzzlers'
   ].freeze
 
   def initialize(difficulty = nil, slack_data: nil)
@@ -71,9 +75,9 @@ class Sudoku
   end
 
   def sub_tags(resp)
-    return resp unless @data
+    return resp unless @slack_data
 
-    resp.gsub!('{{user}}', "<@#{@data.user}>")
+    resp.gsub!('{{user}}', "<@#{@slack_data.user}>")
     resp
   end
 end
