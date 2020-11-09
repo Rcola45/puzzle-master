@@ -13,11 +13,14 @@ class Sudoku
     'Here\'s one for the ages, Puzzlers',
     'This one is :chefs-kiss:, Puzzlers',
     'I solved this in 1:27. Try and catch up, Puzzlers',
+    '{{user}} has requested a puzzle for their fellow Puzzlers'
   ].freeze
 
-  def initialize(difficulty = nil)
+  def initialize(difficulty = nil, slack_data: nil)
     @difficulty = difficulty&.downcase || 'medium'
     @puzzle_urls = []
+    @slack_data = slack_data
+
     fetch_puzzles
   end
 
@@ -37,7 +40,8 @@ class Sudoku
 
   def response(index = nil)
     # Specific response or random
-    index ? RESPONSES[index] : RESPONSES.sample
+    resp = (index ? RESPONSES[index] : RESPONSES.sample)
+    sub_tags(resp)
   end
 
   private
@@ -64,5 +68,12 @@ class Sudoku
     else
       2
     end
+  end
+
+  def sub_tags(resp)
+    return resp unless @data
+
+    resp.gsub!('{{user}}', "<@#{@data.user}>")
+    resp
   end
 end
