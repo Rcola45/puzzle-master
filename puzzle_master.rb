@@ -10,10 +10,11 @@ class PuzzleMaster < SlackRubyBot::Bot
       difficulty = %w[medium hard].sample
     end
     difficulty = %w[medium hard].sample if match[:difficulty].nil?
-    response ||= sudoku.response
     difficulty ||= match[:difficulty]
 
     sudoku = Sudoku.new(difficulty, slack_data: data)
+    response ||= sudoku.response
+
     message = build_message(response, sudoku.url, difficulty)
     puts "Responding to '!sudoku' command with: #{message}"
     respond_to_slack(client, data, message)
