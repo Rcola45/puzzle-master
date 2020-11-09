@@ -4,7 +4,8 @@ class PuzzleTitle
   PUZZLE_TITLES = [
     "Your 'doku, m'Puzzler",
     "In all it's glory",
-    'and God said "Let there be puzzles"'
+    'and God said "Let there be puzzles"',
+    'U R L'
   ].freeze
 
   def initialize
