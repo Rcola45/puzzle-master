@@ -15,7 +15,6 @@ GEM
     async-websocket (0.8.0)
       async-io
       websocket-driver (~> 0.7.0)
-    childprocess (3.0.0)
     concurrent-ruby (1.1.7)
     console (1.8.2)
     dotenv (2.7.6)
@@ -33,10 +32,6 @@ GEM
     nio4r (2.5.4)
     rack (2.2.3)
     ruby2_keywords (0.0.2)
-    rubyzip (2.3.0)
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
     slack-ruby-bot (0.16.0)
       hashie
       slack-ruby-client (>= 0.14.0)
@@ -62,7 +57,6 @@ DEPENDENCIES
   async-websocket (~> 0.8.0)
   dotenv
   rack
-  selenium-webdriver
   slack-ruby-bot
 
 RUBY VERSION
