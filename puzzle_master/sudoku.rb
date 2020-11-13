@@ -19,7 +19,9 @@ class Sudoku
     'X-Wing on this one would only slow you down, Puzzlers',
     'I go to bed...and all I see in my head...is grids...Puzzlers',
     "{{user}} has requested someone get me out of this computer!\nJust kidding, its another sudoku, Puzzlers",
-    'Put a 3 in row seven, column four, trust me Puzzlers'
+    'Put a 3 in row seven, column four, trust me Puzzlers',
+    "I'm not a nosy person but isn't this like the 20th sudoku this week?",
+    'When your backs against the wall, go 50/50 on that double pair'
   ].freeze
 
   def initialize(difficulty = nil, slack_data: nil, morning: false)
