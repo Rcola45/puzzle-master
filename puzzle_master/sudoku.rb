@@ -1,9 +1,11 @@
-require_relative './puzzle_driver'
+require 'open-uri'
 
 class Sudoku
-  attr_reader :difficulty, :puzzles
+  attr_reader :difficulty, :numerical_difficulty, :url
 
   BASE_URL = 'https://sudokuexchange.com/play/'.freeze
+  FETCH_BASE_URL = 'https://raw.githubusercontent.com/grantm/sudoku-exchange-puzzle-bank/master/'.freeze
+  DIFFICULTIES = %w[easy medium hard diabolical].freeze
   RESPONSES = [
     'Of course, Puzzlers',
     'As you wish, Puzzlers',
@@ -16,30 +18,25 @@ class Sudoku
     '{{user}} has requested a puzzle for their fellow Puzzlers',
     'X-Wing on this one would only slow you down, Puzzlers',
     'I go to bed...and all I see in my head...is grids...Puzzlers',
-    "{{user}} has requested someone get me out of this computer!\nJust kidding, its just another sudoku, Puzzlers",
+    "{{user}} has requested someone get me out of this computer!\nJust kidding, its another sudoku, Puzzlers",
     'Put a 3 in row seven, column four, trust me Puzzlers'
   ].freeze
 
-  def initialize(difficulty = nil, slack_data: nil)
-    @difficulty = difficulty&.downcase || 'medium'
-    @puzzle_urls = []
+  def initialize(difficulty = nil, slack_data: nil, morning: false)
+    @difficulty = ([difficulty&.downcase] & DIFFICULTIES).first || 'medium'
+    @numerical_difficulty = '0'
+    @url = nil
+    @sudoku = nil
+    @fetch_url = "#{FETCH_BASE_URL}#{@difficulty}.txt"
     @slack_data = slack_data
+    @is_morning = morning
 
-    fetch_puzzles
-  end
-
-  def url(index = nil)
-    # Specific puzzle or random
-    index ? @puzzle_urls[index] : @puzzle_urls.sample
-  end
-
-  def urls
-    @puzzle_urls
+    build_puzzle_url
   end
 
   def refresh
     # Refreshes list of puzzle urls
-    @puzzle_urls = fetch_puzzles
+    build_puzzle_url
   end
 
   def response(index = nil)
@@ -48,16 +45,36 @@ class Sudoku
     sub_tags(resp)
   end
 
+  def slack_response
+    @url ||= 'I couldn\'t do it. I couldn\t find a sudoku for all you fine Puzzlers today :pepehands:'
+    message = @is_morning ? 'Good Morning, Puzzlers' : response
+    message << "\n<#{@url}|#{PuzzleTitle.new.title}>"
+    message << "\nDifficulty Level: #{@difficulty.capitalize}" if @difficulty
+    message << " (#{@numerical_difficulty})" if @numerical_difficulty
+    message
+  end
+
+  def to_s
+    @sudoku
+  end
+
   private
 
   # Returns array of urls to puzzles
-  def fetch_puzzles
-    css = ".recently-shared .section:nth-child(#{difficulty_index}) ul a"
+  def build_puzzle_url
+    fetch_sudoku
+    @url = "#{BASE_URL}?s=#{@sudoku}"
+  end
 
-    puzzle_driver = PuzzleDriver.new
-    puzzle_driver.get(BASE_URL)
-    @puzzle_urls = puzzle_driver.find_elements_from_css(css).map { |link| link['href'] }
-    puzzle_driver.quit
+  def fetch_sudoku
+    return unless @fetch_url.end_with? '.txt'
+
+    file = open(@fetch_url)
+    lines = file.readlines
+    line = lines[rand(lines.size)].split(' ')
+    @sudoku = line[1]
+    @numerical_difficulty = line[2]
+    file.close
   end
 
   def difficulty_index
